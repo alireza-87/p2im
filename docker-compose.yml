@@ -1,0 +1,16 @@
+services:
+  p2im:
+    build: .
+    container_name: p2im-fuzzer
+    volumes:
+      # Mount current directory to persist fuzzing results
+      - ./fuzzing:/app/fuzzing
+    # Keep container running for interactive use
+    stdin_open: true
+    tty: true
+    ports:
+      - "9000:9000"  # GDB debugging port
+    # Set working directory
+    working_dir: /app
+    # Override default command to keep container running
+    command: tail -f /dev/null
